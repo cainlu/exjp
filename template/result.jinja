@@ -1,0 +1,33 @@
+{% extends 'base.jinja' %}
+
+{% block head %}
+<link href='/css/my_result.css' rel='stylesheet' type='text/css'/>
+{% endblock %}
+
+{% block top %}
+    <li><a href='/main/display/'><b>显示</b></a></li>
+    <li><a href='/main/upload/'><b>上传</b></a></li>
+    {% if user.is_authenticated() %}
+        <li><a><b>{{ user.get_profile().nickname|e }}</b></a></li>
+        <li><a href='/account/logout_action/'><b>登出</b></a></li>
+    {% else %}
+        <li><a href='/account/register/'><b>注册</b></a></li>
+        <li><a href='/account/login/'><b>登陆</b></a></li>
+    {% endif %}
+{% endblock %}
+
+{% block context %}
+<div class='templatemo_title'>信息反馈</div><br>
+<div class='templatemo_main_context'>
+	<div id='result_div'>
+	    {% if state == '1' %}
+		<img src='/image/tick.png'/>
+		{% elif state == '2' %}
+		<img src='/image/cross.png'/>
+		{% endif %}
+		<div>{{ message }}</div><br><br><br>
+		<a href='{% if url %}{{ url }}{% endif %}'>返回继续操作</a>
+	</div>
+</div>
+<br>
+{% endblock %}

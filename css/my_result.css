@@ -1,0 +1,15 @@
+#result_div img {
+	float:left;
+	margin:0 0 0 370px;
+}
+
+#result_div div{
+	float:left;
+	font-size:140%;
+	margin:8px 0 0 0;
+}
+
+#result_div a{
+	font-size:120%;
+	margin:0 0 0 15px;
+}

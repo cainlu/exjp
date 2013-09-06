@@ -1,0 +1,17 @@
+<script>
+	$(document).ready(function(){
+	    {% if comments %}
+	       $('#comment_add_' + {{ item_id }}).html('');
+	    {% endif %}
+	});
+</script>
+{% if comments %}
+    {% for comment in comments %}
+        <div class='cleaner'></div>
+        <div class='comment_name_div'>{{ comment.user.get_profile().nickname|e }}</div>
+        <div class='comment_context_div'>{{ comment.context|e }}</div>
+    {% endfor %}<br><br>
+{% else %}
+    <div class='cleaner'></div>
+    <div id='no_comment_{{ item_id }}'>暂无评论</div>
+{% endif %}

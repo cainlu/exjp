@@ -1,0 +1,5 @@
+image/item/*
+qianren/settings.py
+*.pyc
+uwsgi.log
+uwsgi.pid

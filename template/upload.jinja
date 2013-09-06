@@ -1,0 +1,39 @@
+{% extends 'base.jinja' %}
+
+{% block head %}
+<link href='/css/my_upload.css' rel='stylesheet' type='text/css'/>
+<script type='text/javascript' src='/js/upload.js'></script>
+{% endblock %}
+
+{% block top %}
+    <li><a href='/main/display/'><b>显示</b></a></li>
+    <li class='current'><a><b>上传</b></a></li>
+    {% if user.is_authenticated() %}
+        <li><a><b>{{ user.get_profile().nickname|e }}</b></a></li>
+        <li><a href='/account/logout_action/'><b>登出</b></a></li>
+    {% else %}
+        <li><a href='/account/register/'><b>注册</b></a></li>
+        <li><a href='/account/login/'><b>登陆</b></a></li>
+    {% endif %}
+{% endblock %}
+
+{% block context %}
+<div class='templatemo_title'>上传审核</div><br>
+<div class='templatemo_main_context'>
+	<form method='post' action='/main/judge_action/' enctype='multipart/form-data' id='upload_form'>
+	    {% csrf_token %}
+	    <div class='upload_div'>文字内容</div><textarea name='context' placeholder='说些什么吧。。。' class='upload_textarea'></textarea>
+        <div class='judge_div' id='context_judge_div'></div><br><br><br><br><br>
+	    <div class='upload_div'>图片（可选）</div><input type='file' name='image' class='upload_input'/>
+        <div class='judge_div' id='image_judge_div'></div><br><br>
+	    <div class='upload_div'>作者</div>
+	    {% if user.is_authenticated()  %}
+	        <div class='upload_div_2'>{{ user.get_profile().nickname|e }}</div>
+	    {% else %}
+	        <div class='upload_div_2'>匿名用户</div>
+	    {% endif %}<br><br>
+	    <input type='button' value='提交' id='upload_button' class='base_button'/><br>
+	</form>
+</div>
+<br>
+{% endblock %}

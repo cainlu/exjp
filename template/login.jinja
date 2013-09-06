@@ -1,0 +1,29 @@
+{% extends 'base.jinja' %}
+
+{% block head %}
+<link href='/css/my_login.css' rel='stylesheet' type='text/css'/>
+<script type='text/javascript' src='/js/login.js'></script>
+{% endblock %}
+
+{% block top %}
+    <li><a href='/main/display/'><b>显示</b></a></li>
+    <li><a href='/main/upload/'><b>上传</b></a></li>
+    <li><a href='/account/register/'><b>注册</b></a></li>
+    <li class='current'><a><b>登陆</b></a></li>
+{% endblock %}
+
+{% block context %}
+<div class='templatemo_title'>用户登陆</div><br>
+<div class='templatemo_main_context'>
+    <form method='post' action='/account/login_action/' id='login_form'>
+        {% csrf_token %}
+        <div class='login_div'>用户名</div><input type='text' name='username' class='login_input'/>
+        <div class='judge_div' id='username_judge_div'></div><br><br>
+        <div class='login_div'>密码</div><input type='password' name='password' class='login_input'/>
+        <div class='judge_div' id='password_judge_div'></div><br><br>
+        {{ captcha }}<div class='judge_div' id='captcha_judge_div'></div><br><br>
+        <input type='button' value='提交' id='login_button' class='base_button'/><br>
+    </form>
+</div>
+<br>
+{% endblock %}

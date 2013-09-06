@@ -1,0 +1,76 @@
+{% extends 'base.jinja' %}
+
+{% block head %}
+<link href='/css/my_display.css' rel='stylesheet' type='text/css'/>
+<script type='text/javascript' src='/js/display.js'></script>
+{% endblock %}
+
+{% block top %}
+    <li class='current'><a><b>显示</b></a></li>
+    <li><a href='/main/upload/'><b>上传</b></a></li>
+    {% if user.is_authenticated() %}
+        <li><a><b>{{ user.get_profile().nickname|e }}</b></a></li>
+        <li><a href='/account/logout_action/'><b>登出</b></a></li>
+    {% else %}
+        <li><a href='/account/register/'><b>注册</b></a></li>
+        <li><a href='/account/login/'><b>登陆</b></a></li>
+    {% endif %}
+{% endblock %}
+
+{% block context %}
+<div class='templatemo_main_context'>
+	<div id='display_context'>
+	    <div class='templatemo_title' id='display_title'>显示列表</div><br>
+		{% for item in items %}
+		    {% if item.user %}
+		        <div class='display_div'>{{ item.user.get_profile().nickname|e }}</div>
+		    {% else %}
+		        <div class='display_div'>匿名用户</div>
+		    {% endif %}
+		    <div class='context_div'>{{ item.context|e }}</div>
+		    {% if item.image %}
+		        <div class='cleaner'></div>
+		        <img src='/{{ item.image }}?mode=1' class='display_img' id='image_{{ item.id }}' onclick='image_change({{ item.id }})'/>
+		    {% endif %}
+		    <div class='cleaner'></div>
+		    <div class='display_judge_div comment_div' onclick='comment_show({{ item.id }})'>
+                <img src='/image/comment.png' class='vote_img'/>
+                <div id='comment_div_{{ item.id }}'>{{ item.comments }}</div>
+            </div>
+		    <div class='display_judge_div agree_div' onclick='vote({{ item.id }}, "1")'>
+                <img src='/image/flower.png' class='vote_img'/>
+                <div id='agree_div_{{ item.id }}'>{{ item.agree }}</div>
+            </div>
+		    <div class='display_judge_div disagree_div' onclick='vote({{ item.id }}, "0")'>
+                <img src='/image/shit.png' class='vote_img'/>
+                <div id='disagree_div_{{ item.id }}'>{{ item.disagree }}</div>
+            </div>
+		    <div class='comment_show' id='comment_show_{{ item.id }}'>
+		        <div class='cleaner'></div>
+		        <hr>
+		        <form method='post' action='/main/comment_action/' class='comment_form'>
+			        {% csrf_token %}
+			        <input type='text' name='context' class='comment_input' id='context_{{ item.id }}'>
+			        <input type='button' value='发表评论' class='base_button comment_button' onclick='comment_action({{ item.id }})'/>
+			    </form>
+			    <div id='comment_add_{{ item.id }}'>{% include 'comment_add.jinja' %}</div>
+                <div id='comment_all_{{ item.id }}'>{% include 'comments.jinja' %}</div>
+		    </div>
+		    <div class='cleaner'></div>
+            <div class='line_div'>&nbsp;</div>
+		{% endfor %}
+		<br><br>
+		{% if page > 1 %}
+            <a href='/main/display/?page={{ page - 1 }}' id='page_last'>上一页</a>
+        {% endif %}
+        <select onchange='window.location.href="/main/display/?page=" + this.value'>
+            {% for tmp_page in range(pages)%}
+			    <option value='{{tmp_page + 1}}'{% if tmp_page + 1 == page %} selected='selected'{% endif %}>第{{tmp_page + 1}}页</option>
+			{% endfor %}
+		</select>
+        {% if page < pages %}
+		    <a href='/main/display/?page={{ page + 1 }}'id='page_next'>下一页</a>
+		{% endif %}<br><br>
+	</div><br><br>
+</div>
+{% endblock %}
