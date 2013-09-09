@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block top %}
-    <li><a href='/main/display/'><b>显示</b></a></li>
+    <li><a href='/'><b>显示</b></a></li>
     <li class='current'><a><b>上传</b></a></li>
     {% if user.is_authenticated() %}
         <li><a><b>{{ user.get_profile().nickname|e }}</b></a></li>

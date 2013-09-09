@@ -1,8 +1,8 @@
 <script>
 	$(document).ready(function(){
 	    {% if state == '1' %}
-	        $('#comment_div_' + {{ item_id }}).html({{ comment_num }});
-	        $('#comment_add_' + {{ item_id }}).html("<div class='comment_name_div'>{{ comment_add.user.get_profile().nickname|e }}</div><div class='comment_context_div'>{{ comment_add.context|e }}</div>");
+	        $('#comment_div_{{ item_id }}').html({{ comment_num }});
+	        $('#comment_add_{{ item_id }}').html("<div class='comment_name_div'>{{ comment_add.user.get_profile().nickname|e }}</div><div class='comment_context_div'>{{ comment_add.context|e }}</div>");
 	        if ($('#no_comment_{{ item_id }}').html() == '暂无评论'){
                 $('#no_comment_{{ item_id }}').html('');
             }
@@ -11,7 +11,7 @@
 	    {% elif state == '2' %}
 	        new_alert('请先登录再进行操作', '2');
 	    {% elif state == '3' %}
-	        new_alert('请过10分钟再对其进行评论', '2');
+	        new_alert('请过1分钟再对其进行评论', '2');
 	    {% endif %}
 	});
 </script>

@@ -31,7 +31,8 @@ a:active, a:hover { color: #000000; text-decoration: none; }
 
 #templatemo_logo {
 	float: left;
-	width: 272px;
+	text-align:center;
+	width: 100px;
 	height: 57px;
 	background: url(images/templatemo_logo_bg.jpg);
 	font-family: 'Trebuchet MS', Tahoma, Verdana;

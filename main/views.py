@@ -35,6 +35,8 @@ def judge_action(request):
             image = request.FILES['image']
         else:
             image = None
+        if image.size > 3 * 1024 * 1024:
+            return render_to_response('result.jinja', {'state':'2', 'message':u'图片最大3M', 'url':'/main/upload'}, RequestContext(request))
         item = Item.objects.create(
                                    user=user,
                                    context=context,
@@ -96,7 +98,7 @@ def comment_action(request):
         user = User.objects.get(id=user_id)
         item = Item.objects.get(id=item_id)
         comment_recent = Comment.objects.filter(user=user, item=item).order_by('-time')
-        if len(comment_recent) == 0 or datetime.now() - comment_recent[0].time > timedelta(minutes = 10):
+        if len(comment_recent) == 0 or datetime.now() - comment_recent[0].time > timedelta(minutes = 1):
             comment = Comment.objects.create(
                                              user=user,
                                              item=item,
@@ -107,8 +109,8 @@ def comment_action(request):
             item.comments += 1
             item.score += 1000
             item.save()
-            return render_to_response('comment_add.jinja', {'comment_add':comment, 'state':'1', 'item_id':item_id, 'comment_num':item.comments}, RequestContext(request))
+            return render_to_response('comment_add.jinja', {'state':'1', 'comment_add':comment, 'item_id':item_id, 'comment_num':item.comments}, RequestContext(request))
         else:
-            return render_to_response('comment_add.jinja', {'state':'3'}, RequestContext(request))#请过10分钟再对其进行评论
+            return render_to_response('comment_add.jinja', {'state':'3'}, RequestContext(request))#请过1分钟再对其进行评论
     else:
         return render_to_response('comment_add.jinja', {'state':'2'}, RequestContext(request))#请先登录再进行操作

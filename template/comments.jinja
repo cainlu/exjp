@@ -1,7 +1,7 @@
 <script>
 	$(document).ready(function(){
 	    {% if comments %}
-	       $('#comment_add_' + {{ item_id }}).html('');
+	       $('#comment_add_{{ item_id }}').html('');
 	    {% endif %}
 	});
 </script>

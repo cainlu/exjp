@@ -62,6 +62,8 @@
 		<br><br>
 		{% if page > 1 %}
             <a href='/main/display/?page={{ page - 1 }}' id='page_last'>上一页</a>
+        {% else %}
+            <span id='page_last'>上一页</span>
         {% endif %}
         <select onchange='window.location.href="/main/display/?page=" + this.value'>
             {% for tmp_page in range(pages)%}
@@ -70,6 +72,8 @@
 		</select>
         {% if page < pages %}
 		    <a href='/main/display/?page={{ page + 1 }}'id='page_next'>下一页</a>
+		{% else %}
+            <span id='page_next'>下一页</span>
 		{% endif %}<br><br>
 	</div><br><br>
 </div>
