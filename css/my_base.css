@@ -144,3 +144,14 @@ a:active, a:hover { color: #000000; text-decoration: none; }
 .cleaner {
 	clear:both;
 }
+
+#templatemo_footer {
+	text-align:center;
+	font-size:130%;
+	padding:10px 0;
+}
+
+#templatemo_footer a {
+	color:blue;
+	margin:0 10px;
+}

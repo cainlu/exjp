@@ -35,7 +35,7 @@ def judge_action(request):
             image = request.FILES['image']
         else:
             image = None
-        if image.size > 3 * 1024 * 1024:
+        if image != None and image.size > 3 * 1024 * 1024:
             return render_to_response('result.jinja', {'state':'2', 'message':u'图片最大3M', 'url':'/main/upload'}, RequestContext(request))
         item = Item.objects.create(
                                    user=user,
@@ -114,3 +114,9 @@ def comment_action(request):
             return render_to_response('comment_add.jinja', {'state':'3'}, RequestContext(request))#请过1分钟再对其进行评论
     else:
         return render_to_response('comment_add.jinja', {'state':'2'}, RequestContext(request))#请先登录再进行操作
+
+def contact_us(request):
+    return render_to_response('result.jinja', {'state':'3', 'url':'/'}, RequestContext(request))
+
+def about_us(request):
+    return render_to_response('result.jinja', {'state':'4', 'url':'/'}, RequestContext(request))
