@@ -29,7 +29,7 @@ def get_image(request, path):
         image.save(io, image_type)
         return HttpResponse(io.getvalue(), mimetype = 'image/' + image_type)
     elif mode == '0':
-        if path.endswith('.gif'):
+        if path.endswith('.gif') or path.endswith('.ico'):
             image = open(path, 'rb').read()
             return HttpResponse(image, mimetype = 'image/' + image_type)
         else:
