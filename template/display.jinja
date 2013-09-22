@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block top %}
-    <li class='current'><a><b>显示</b></a></li>
-    <li><a href='/main/upload/'><b>上传</b></a></li>
+    <li class='current'><a><b>全部</b></a></li>
+    <li><a href='/main/upload/'><b>投稿</b></a></li>
     {% if user.is_authenticated() %}
         <li><a><b>{{ user.get_profile().nickname|e }}</b></a></li>
         <li><a href='/account/logout_action/'><b>登出</b></a></li>
@@ -20,7 +20,7 @@
 {% block context %}
 <div class='templatemo_main_context'>
 	<div id='display_context'>
-	    <div class='templatemo_title' id='display_title'>显示列表</div><br>
+	    <div class='templatemo_title' id='display_title'>全部显示</div><br>
 		{% for item in items %}
 		    {% if item.user %}
 		        <div class='display_div'>{{ item.user.get_profile().nickname|e }}</div>

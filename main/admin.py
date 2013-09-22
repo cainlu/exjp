@@ -13,7 +13,7 @@ class ItemAdmin(admin.ModelAdmin):
     
     def save_model(self, request, obj, form, change):
         if obj.status == 2 and obj.image:
-            os.remove(os.getcwd() + '\\' + str(obj.image))
+            os.remove(os.getcwd() + '/' + str(obj.image))
             obj.image = ''
         obj.save()
 
