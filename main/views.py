@@ -1,8 +1,9 @@
 #coding=utf-8
 from django.shortcuts import render_to_response, RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.conf import settings
 from forms import UploadForm
-from models import Item, User_Record, Comment
+from models import Item, User_Record, Comment, Item_Ready
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 import time
@@ -120,3 +121,22 @@ def contact_us(request):
 
 def about_us(request):
     return render_to_response('result.jinja', {'state':'4', 'url':'/'}, RequestContext(request))
+
+def upload_per_hour(request):
+    user = request.GET['user']
+    password = request.GET['password']
+    if user == settings.ITEM_READY_UESR and password == settings.ITEM_READY_PASSWORD:
+        user = User.objects.get(username=user)
+        item_ready = Item_Ready.objects.filter(status=0).order_by('id')[0]
+        item = Item.objects.create(
+                                   user=None,
+                                   context=item_ready.context,
+                                   time=datetime.now(),
+                                   image=item_ready.image,
+                                   status=1,
+                                   score=int(time.time() / (60 * 60) * 1000),
+                                   )
+        item.save()
+        item_ready.status = 1
+        item_ready.save()
+    return HttpResponseRedirect('/')

@@ -44,3 +44,11 @@ class User_Record(models.Model):
     
     def __unicode__(self):
         return u'%s' % self.id
+
+class Item_Ready(models.Model):
+    context = models.TextField(verbose_name=u'内容')
+    image = models.ImageField(verbose_name=u'图片', upload_to='image/item', blank=True, null=True)
+    status = models.PositiveIntegerField(verbose_name=u'状态', choices=item_status, default=0)
+    
+    def __unicode__(self):
+        return u'%s' % self.id

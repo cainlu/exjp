@@ -1,12 +1,12 @@
 #coding=utf-8
 
 from django.contrib import admin
-from models import Item
+from models import Item, Item_Ready
 import os
 
-class ItemAdmin(admin.ModelAdmin):
+class Item_Admin(admin.ModelAdmin):
     model = Item
-    list_display = ('id', 'user', 'context', 'time', 'agree', 'disagree', 'image', 'status')
+    list_display = ('id', 'user', 'context', 'time', 'agree', 'disagree', 'image', 'status',)
     list_filter = ('status',)
     list_editable = ('context', 'status',)
     search_fields = ['id', 'context']
@@ -17,4 +17,10 @@ class ItemAdmin(admin.ModelAdmin):
             obj.image = ''
         obj.save()
 
-admin.site.register(Item, ItemAdmin)
+class Item_Ready_Admin(admin.ModelAdmin):
+    model = Item_Ready
+    list_display = ('id', 'context', 'image', 'status',)
+    list_editable = ('context', 'image', 'status',)
+
+admin.site.register(Item, Item_Admin)
+admin.site.register(Item_Ready, Item_Ready_Admin)
