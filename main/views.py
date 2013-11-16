@@ -130,7 +130,7 @@ def upload_per_hour(request):
     password = request.GET['password']
     if user == settings.ITEM_READY_UESR and password == settings.ITEM_READY_PASSWORD:
         user = User.objects.get(username=user)
-        item_ready = Item_Ready.objects.filter(status=0).order_by('id')[0]
+        item_ready = Item_Ready.objects.filter(status=0).order_by('?')[0]
         item = Item.objects.create(
                                    user=None,
                                    context=item_ready.context,
