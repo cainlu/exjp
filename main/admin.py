@@ -20,7 +20,9 @@ class Item_Admin(admin.ModelAdmin):
 class Item_Ready_Admin(admin.ModelAdmin):
     model = Item_Ready
     list_display = ('id', 'context', 'image', 'status',)
+    list_filter = ('status',)
     list_editable = ('context', 'image', 'status',)
+    search_fields = ['id', 'context']
 
 admin.site.register(Item, Item_Admin)
 admin.site.register(Item_Ready, Item_Ready_Admin)
