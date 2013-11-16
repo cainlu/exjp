@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 import time
 import json
+import random
 
 def display(request):
     page = int(request.GET.get('page', '1'))
@@ -44,6 +45,8 @@ def judge_action(request):
                                    time=datetime.now(),
                                    image=image,
                                    status=0,
+                                   agree=random.randint(100, 200),
+                                   disagree=random.randint(0, 50),
                                    score=int(time.time() / (60 * 60) * 1000),
                                    )
         item.save()
@@ -108,7 +111,7 @@ def comment_action(request):
                                              )
             comment.save()
             item.comments += 1
-            item.score += 1000
+            item.score += 3000
             item.save()
             return render_to_response('comment_add.jinja', {'state':'1', 'comment_add':comment, 'item_id':item_id, 'comment_num':item.comments}, RequestContext(request))
         else:
