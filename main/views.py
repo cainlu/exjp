@@ -136,6 +136,8 @@ def upload_per_hour(request):
                                    context=item_ready.context,
                                    time=datetime.now(),
                                    image=item_ready.image,
+                                   agree=random.randint(100, 200),
+                                   disagree=random.randint(0, 50),
                                    status=1,
                                    score=int(time.time() / (60 * 60) * 1000),
                                    )
